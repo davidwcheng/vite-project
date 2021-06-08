@@ -31,7 +31,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 
 const geometry = new THREE.TorusKnotGeometry(9, 2.2, 300, 20, 12, 20);
-const material = new THREE.MeshStandardMaterial({ color: 0x1093c7 });
+const material = new THREE.MeshStandardMaterial({ color: 0x466afa });
 const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
@@ -51,7 +51,7 @@ const orbitControls = new OrbitControls(camera, renderer.domElement);
 
 function addObjects() {
   const geometryIco = new THREE.IcosahedronGeometry(1, 2);
-  const materialIco = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const materialIco = new THREE.MeshStandardMaterial({ color: 0xf58488 });
   const icosohedron = new THREE.Mesh(geometryIco, materialIco);
 
   const [x, y, z] = Array(3)
