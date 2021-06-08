@@ -50,9 +50,9 @@ scene.add(lightHelp, gridHelp);
 const orbitControls = new OrbitControls(camera, renderer.domElement);
 
 function addObjects() {
-  const geometry = new THREE.IcosahedronGeometry(1, 2);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
-  const icosohedron = new THREE.Mesh(geometry, material);
+  const geometryIco = new THREE.IcosahedronGeometry(1, 2);
+  const materialIco = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const icosohedron = new THREE.Mesh(geometryIco, materialIco);
 
   const [x, y, z] = Array(3)
     .fill()
