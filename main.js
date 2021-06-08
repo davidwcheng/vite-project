@@ -1,66 +1,87 @@
-import './style.css'
+import "./style.css";
 
-import * as THREE from 'three';
+import * as THREE from "three";
 
-import {MapControls, OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
-import { BackSide, BoxGeometry, IcosahedronGeometry, OctahedronGeometry } from 'three';
+import {
+  MapControls,
+  OrbitControls,
+} from "three/examples/jsm/controls/OrbitControls";
+import {
+  BackSide,
+  BoxGeometry,
+  IcosahedronGeometry,
+  OctahedronGeometry,
+} from "three";
 
 const scene = new THREE.Scene();
 
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
 
 const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector('#bg'),
+  canvas: document.querySelector("#bg"),
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth,window.innerHeight);
+renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 
-
-
-const geometry = new THREE.TorusKnotGeometry(9, 2.2 , 300, 20, 12, 20);
-const material = new THREE.MeshStandardMaterial( {color: 0x1093c7});
-const torus = new THREE.Mesh(geometry,material);
+const geometry = new THREE.TorusKnotGeometry(9, 2.2, 300, 20, 12, 20);
+const material = new THREE.MeshStandardMaterial({ color: 0x1093c7 });
+const torus = new THREE.Mesh(geometry, material);
 
 scene.add(torus);
 
 const pointL = new THREE.PointLight(0xffffff);
-pointL.position.set(5,5,5);
+pointL.position.set(5, 5, 5);
 
 const ambientL = new THREE.AmbientLight(0xffffff);
 
-scene.add(pointL,ambientL);
+scene.add(pointL, ambientL);
 
 const lightHelp = new THREE.PointLightHelper(pointL);
-const gridHelp = new THREE.GridHelper(200,50);
-scene.add(lightHelp,gridHelp);
+const gridHelp = new THREE.GridHelper(200, 50);
+scene.add(lightHelp, gridHelp);
 
 const orbitControls = new OrbitControls(camera, renderer.domElement);
 
-function addObjects(){
-  const geometry = new THREE.IcosahedronGeometry(1,2);
-  const material = new THREE.MeshStandardMaterial({color:0xffffff});
-  const icosohedron = new THREE.Mesh(geometry,material);
+function addObjects() {
+  const geometry = new THREE.IcosahedronGeometry(1, 2);
+  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const icosohedron = new THREE.Mesh(geometry, material);
 
-  const [x, y, z] = Array(3).fill().map(()=> THREE.MathUtils.randFloatSpread(100));
+  const [x, y, z] = Array(3)
+    .fill()
+    .map(() => THREE.MathUtils.randFloatSpread(100));
 
-  icosohedron.position.set(x,y,z);
+  icosohedron.position.set(x, y, z);
   scene.add(icosohedron);
 }
 
 Array(200).fill().forEach(addObjects);
 
-const bigSur = new THREE.TextureLoader().load('download.jpg');
+const bigSur = new THREE.TextureLoader().load("download.jpg");
 scene.background = bigSur;
 
-const meTexture = new THREE.TextureLoader().load('david.jpg');
-const david = new THREE.Mesh(new BoxGeometry(4,4,4), new THREE.MeshBasicMaterial({map: meTexture}));
-scene.add(david);
-function animateFrame(){
-  requestAnimationFrame(animateFrame);
+const meTexture = new THREE.TextureLoader().load("david.jpg");
+const david = new THREE.Mesh(
+  new BoxGeometry(4, 4, 4),
+  new THREE.MeshBasicMaterial({ map: meTexture })
+);
 
-  
+const jupiterTexture = new THREE.TextureLoader().load("jupiterPan.jpg");
+const jupiter = new THREE.Mesh(
+  new THREE.SphereGeometry(6, 32, 32),
+  new THREE.MeshStandardMaterial({ map: jupiterTexture })
+);
+
+scene.add(david,jupiter);
+function animateFrame() {
+  requestAnimationFrame(animateFrame);
 
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
@@ -68,6 +89,6 @@ function animateFrame(){
 
   orbitControls.update();
 
-  renderer.render( scene, camera);
+  renderer.render(scene, camera);
 }
 animateFrame();
