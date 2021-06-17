@@ -30,7 +30,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 
-const geometry = new THREE.TorusKnotGeometry(9, 2.2, 300, 20, 12, 20);
+const geometry = new THREE.TorusGeometry(10, 3 ,16, 100);
 const material = new THREE.MeshStandardMaterial({ color: 0x466afa });
 const torus = new THREE.Mesh(geometry, material);
 
@@ -76,6 +76,26 @@ const jupiter = new THREE.Mesh(
 );
 
 scene.add(david,jupiter);
+
+jupiter.position.z = 30;
+jupiter.position.setX(-10);
+
+function moveCam(){
+  const t = document.body.getBoundingClientRect().top;
+  jupiter.rotation.x += 0.05;
+  jupiter.rotation.y += 0.075;
+  jupiter.rotation.z += 0.05;
+
+  david.rotation.y += 0.01;
+  david.rotation.z += 0.01;
+
+  camera.position.z = t*-0.01;
+  camera.position.x = t *-0.0002;
+  camera.position.y = t *-0.0002;
+}
+
+document.body.onscroll = moveCam
+
 function animateFrame() {
   requestAnimationFrame(animateFrame);
 
